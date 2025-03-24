@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kayıt Ol</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .title {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .register-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        input {
+            width: 100%;
+            padding: 8px 0;
+            border: none;
+            border-bottom: 1px solid #E6C7C7;
+            outline: none;
+            font-size: 16px;
+            color: #666;
+        }
+        input::placeholder {
+            color: #E6C7C7;
+        }
+        .register-btn {
+            background-color: #E6C7C7;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            position: absolute;
+            right: 30px;
+            bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .register-btn:hover {
+            background-color: #d4b3b3;
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .login-link {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            position: absolute;
+            right: 30px;
+            bottom: -50px;
+        }
+        .password-info {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Kayıt Ol</h1>
+    <div class="register-container">
+        <form id="registerForm">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Kullanıcı Adı" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="E-posta" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Parola" required minlength="8">
+                <div class="password-info">Parola en az 8 karakter olmalıdır</div>
+                <div id="passwordError" class="error-message">Parola en az 8 karakter olmalıdır!</div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="passwordConfirm" placeholder="Parola Tekrar" required>
+                <div id="passwordMatchError" class="error-message">Parolalar eşleşmiyor!</div>
+            </div>
+            <button type="submit" class="register-btn">Kayıt Ol</button>
+        </form>
+        <a href="login.html" class="login-link">Zaten hesabım var</a>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+            
+            // Parola uzunluk kontrolü
+            if (password.length < 8) {
+                document.getElementById('passwordError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+            
+            // Parola eşleşme kontrolü
+            if (password !== passwordConfirm) {
+                document.getElementById('passwordMatchError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('passwordMatchError').style.display = 'none';
+            }
+            
+            // Kullanıcı bilgilerini kaydet
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.');
+            window.location.href = 'login.html';
+        });
+
+        // Parola alanı değiştiğinde kontrol et
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const errorElement = document.getElementById('passwordError');
+            
+            if (password.length < 8) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+
+        // Parola tekrar alanı değiştiğinde kontrol et
+        document.getElementById('passwordConfirm').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const passwordConfirm = this.value;
+            const errorElement = document.getElementById('passwordMatchError');
+            
+            if (password !== passwordConfirm) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 

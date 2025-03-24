@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Avatar Oluştur</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .title {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .avatar-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label {
+            width: 100px;
+            color: #333;
+            font-size: 16px;
+        }
+        .form-group input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #E6C7C7;
+            border-radius: 4px;
+            outline: none;
+        }
+        .skin-colors {
+            display: flex;
+            gap: 10px;
+            margin-left: 10px;
+        }
+        .color-option {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        .color-option.selected {
+            border-color: #333;
+        }
+        .hair-colors {
+            display: flex;
+            gap: 10px;
+            margin-left: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .color-circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+        .color-circle:hover {
+            transform: scale(1.1);
+        }
+        .color-option.selected .color-circle {
+            border-color: #333;
+        }
+        .color-name {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .color-option:hover .color-name {
+            display: block;
+        }
+        .save-btn {
+            background-color: #E6C7C7;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            position: relative;
+            margin-top: 20px;
+            margin-left: auto;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .save-btn:hover {
+            background-color: #d4b3b3;
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .avatar-preview {
+            width: 150px;
+            height: 200px;
+            border: 2px solid #d4b3b3;
+            border-radius: 10px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .avatar-head {
+            width: 60px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .avatar-hair {
+            width: 70px;
+            height: 40px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+        .avatar-body {
+            width: 80px;
+            height: 100px;
+            border-radius: 20px 20px 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .hair-style-options {
+            display: flex;
+            gap: 15px;
+            margin-left: 10px;
+            flex-wrap: wrap;
+        }
+        .hair-style {
+            padding: 8px 15px;
+            border: 2px solid #E6C7C7;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #333;
+            font-size: 14px;
+        }
+        .hair-style:hover {
+            background-color: #E6C7C7;
+            color: white;
+        }
+        .hair-style.selected {
+            background-color: #d4b3b3;
+            color: white;
+            border-color: #d4b3b3;
+        }
+        .hair-style img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .hair-style-1 {
+            border-radius: 40px 40px 0 0;
+        }
+        .hair-style-2 {
+            border-radius: 20px 20px 0 0;
+            height: 30px;
+        }
+        .hair-style-3 {
+            border-radius: 50%;
+            height: 35px;
+            width: 60px;
+        }
+        .hair-style-4 {
+            border-radius: 40px 40px 0 0;
+            height: 50px;
+        }
+        .avatar-scarf {
+            width: 90px;
+            height: 30px;
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            border-radius: 0 0 20px 20px;
+        }
+        .scarf-colors {
+            display: flex;
+            gap: 10px;
+            margin-left: 10px;
+            flex-wrap: wrap;
+        }
+        .form-group:last-of-type {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Avatar Oluştur</h1>
+    <div class="avatar-container">
+        <div class="avatar-preview">
+            <div class="avatar-hair"></div>
+            <div class="avatar-head"></div>
+            <div class="avatar-scarf"></div>
+            <div class="avatar-body"></div>
+        </div>
+        <form id="avatarForm">
+            <div class="form-group">
+                <label>Ten Rengi:</label>
+                <div class="skin-colors">
+                    <div class="color-option" data-color="#FFFFFF">
+                        <div class="color-circle" style="background-color: #FFFFFF"></div>
+                        <span class="color-name">Beyaz</span>
+                    </div>
+                    <div class="color-option" data-color="#F5E6D3">
+                        <div class="color-circle" style="background-color: #F5E6D3"></div>
+                        <span class="color-name">Buğday</span>
+                    </div>
+                    <div class="color-option" data-color="#FFE4C4">
+                        <div class="color-circle" style="background-color: #FFE4C4"></div>
+                        <span class="color-name">Kumral</span>
+                    </div>
+                    <div class="color-option" data-color="#8B4513">
+                        <div class="color-circle" style="background-color: #8B4513"></div>
+                        <span class="color-name">Esmer</span>
+                    </div>
+                    <div class="color-option" data-color="#3B2F2F">
+                        <div class="color-circle" style="background-color: #3B2F2F"></div>
+                        <span class="color-name">Koyu Esmer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Saç:</label>
+                <div class="hair-colors">
+                    <div class="color-option" data-hair="#000000">
+                        <div class="color-circle" style="background-color: #000000"></div>
+                        <span class="color-name">Siyah</span>
+                    </div>
+                    <div class="color-option" data-hair="#8B4513">
+                        <div class="color-circle" style="background-color: #8B4513"></div>
+                        <span class="color-name">Koyu Kahve</span>
+                    </div>
+                    <div class="color-option" data-hair="#CD853F">
+                        <div class="color-circle" style="background-color: #CD853F"></div>
+                        <span class="color-name">Açık Kahve</span>
+                    </div>
+                    <div class="color-option" data-hair="#D2691E">
+                        <div class="color-circle" style="background-color: #D2691E"></div>
+                        <span class="color-name">Bakır</span>
+                    </div>
+                    <div class="color-option" data-hair="#FFD700">
+                        <div class="color-circle" style="background-color: #FFD700"></div>
+                        <span class="color-name">Sarı</span>
+                    </div>
+                    <div class="color-option" data-hair="#F4C430">
+                        <div class="color-circle" style="background-color: #F4C430"></div>
+                        <span class="color-name">Bal Köpüğü</span>
+                    </div>
+                    <div class="color-option" data-hair="#A9A9A9">
+                        <div class="color-circle" style="background-color: #A9A9A9"></div>
+                        <span class="color-name">Gri</span>
+                    </div>
+                    <div class="color-option" data-hair="#FF0000">
+                        <div class="color-circle" style="background-color: #FF0000"></div>
+                        <span class="color-name">Kızıl</span>
+                    </div>
+                    <div class="color-option" data-hair="#800080">
+                        <div class="color-circle" style="background-color: #800080"></div>
+                        <span class="color-name">Mor</span>
+                    </div>
+                    <div class="color-option" data-hair="#FFC0CB">
+                        <div class="color-circle" style="background-color: #FFC0CB"></div>
+                        <span class="color-name">Pembe</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Saç Modeli:</label>
+                <div class="hair-style-options">
+                    <div class="hair-style" data-style="1">Düz Saç</div>
+                    <div class="hair-style" data-style="2">Kısa Saç</div>
+                    <div class="hair-style" data-style="3">Kıvırcık Saç</div>
+                    <div class="hair-style" data-style="4">Uzun Saç</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Şal:</label>
+                <div class="scarf-colors">
+                    <div class="color-option" data-scarf="#FF0000">
+                        <div class="color-circle" style="background-color: #FF0000"></div>
+                        <span class="color-name">Kırmızı</span>
+                    </div>
+                    <div class="color-option" data-scarf="#000000">
+                        <div class="color-circle" style="background-color: #000000"></div>
+                        <span class="color-name">Siyah</span>
+                    </div>
+                    <div class="color-option" data-scarf="#FFFFFF">
+                        <div class="color-circle" style="background-color: #FFFFFF"></div>
+                        <span class="color-name">Beyaz</span>
+                    </div>
+                    <div class="color-option" data-scarf="#FFC0CB">
+                        <div class="color-circle" style="background-color: #FFC0CB"></div>
+                        <span class="color-name">Pembe</span>
+                    </div>
+                    <div class="color-option" data-scarf="#800080">
+                        <div class="color-circle" style="background-color: #800080"></div>
+                        <span class="color-name">Mor</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Boy:</label>
+                <input type="number" id="boy" placeholder="cm cinsinden" min="100" max="250" required>
+            </div>
+            <div class="form-group">
+                <label>Kilo:</label>
+                <input type="number" id="kilo" placeholder="kg cinsinden" min="30" max="200" required>
+            </div>
+            <div class="form-group">
+                <label>Omuz:</label>
+                <input type="number" id="omuz" placeholder="cm cinsinden" min="30" max="100" required>
+            </div>
+            <div class="form-group">
+                <label>Göğüs:</label>
+                <input type="number" id="gogus" placeholder="cm cinsinden" min="60" max="150" required>
+            </div>
+            <div class="form-group">
+                <label>Bel:</label>
+                <input type="number" id="bel" placeholder="cm cinsinden" min="50" max="130" required>
+            </div>
+            <div class="form-group">
+                <label>Basen:</label>
+                <input type="number" id="basen" placeholder="cm cinsinden" min="60" max="150" required>
+            </div>
+            <button type="submit" class="save-btn">Kaydet</button>
+        </form>
+    </div>
+
+    <script>
+        let selectedColor = '';
+        let selectedHairColor = '';
+        let selectedHairStyle = '1';
+        let selectedScarf = '';
+        
+        function updateAvatarPreview() {
+            const head = document.querySelector('.avatar-head');
+            const hair = document.querySelector('.avatar-hair');
+            const body = document.querySelector('.avatar-body');
+            const scarf = document.querySelector('.avatar-scarf');
+            const avatarPreview = document.querySelector('.avatar-preview');
+            
+            const boyInput = document.getElementById('boy').value;
+            const kiloInput = document.getElementById('kilo').value;
+            const omuzInput = document.getElementById('omuz').value;
+            const gogusInput = document.getElementById('gogus').value;
+            const belInput = document.getElementById('bel').value;
+            const basenInput = document.getElementById('basen').value;
+            
+            // Boy değerine göre avatar boyutunu ayarla
+            if (boyInput) {
+                const height = Math.min(Math.max(parseInt(boyInput), 100), 250);
+                const scale = (height - 100) / 150 + 0.8;
+                avatarPreview.style.transform = `scale(${scale})`;
+            }
+            
+            // Kilo ve ölçülere göre vücut genişliğini ayarla
+            if (kiloInput && omuzInput && gogusInput && belInput && basenInput) {
+                const maxWidth = Math.max(parseInt(omuzInput), parseInt(gogusInput), parseInt(basenInput));
+                const bodyScale = maxWidth / 50; // Baz genişlik 50cm
+                body.style.transform = `translateX(-50%) scaleX(${bodyScale})`;
+                
+                // Bel incelmesi
+                const belOrani = parseInt(belInput) / maxWidth;
+                body.style.clipPath = `polygon(
+                    0% 0%,
+                    100% 0%,
+                    ${100 * belOrani}% 50%,
+                    100% 100%,
+                    0% 100%,
+                    ${100 - (100 * belOrani)}% 50%
+                )`;
+            }
+            
+            if (selectedColor) {
+                head.style.backgroundColor = selectedColor;
+                body.style.backgroundColor = selectedColor;
+            }
+            
+            if (selectedHairColor) {
+                hair.style.backgroundColor = selectedHairColor;
+            }
+            
+            if (selectedScarf) {
+                scarf.style.backgroundColor = selectedScarf;
+                scarf.style.display = 'block';
+            } else {
+                scarf.style.display = 'none';
+            }
+            
+            hair.className = 'avatar-hair hair-style-' + selectedHairStyle;
+        }
+
+        // Ten rengi seçimi için
+        const colorOptions = document.querySelectorAll('.skin-colors .color-option');
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.skin-colors .color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedColor = this.getAttribute('data-color');
+                updateAvatarPreview();
+            });
+        });
+
+        // Saç rengi seçimi için
+        const hairColorOptions = document.querySelectorAll('.hair-colors .color-option');
+        hairColorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.hair-colors .color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedHairColor = this.getAttribute('data-hair');
+                updateAvatarPreview();
+            });
+        });
+
+        // Saç stili seçimi için
+        const hairStyleOptions = document.querySelectorAll('.hair-style');
+        hairStyleOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.hair-style').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedHairStyle = this.getAttribute('data-style');
+                updateAvatarPreview();
+            });
+        });
+
+        // Şal rengi seçimi için
+        const scarfColorOptions = document.querySelectorAll('.scarf-colors .color-option');
+        scarfColorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.scarf-colors .color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedScarf = this.getAttribute('data-scarf');
+                updateAvatarPreview();
+            });
+        });
+
+        // Tüm input değişikliklerini dinle
+        ['boy', 'kilo', 'omuz', 'gogus', 'bel', 'basen'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateAvatarPreview);
+        });
+
+        // Form gönderimi
+        document.getElementById('avatarForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            const avatarData = {
+                tenRengi: selectedColor,
+                sacRengi: selectedHairColor,
+                sacModeli: selectedHairStyle,
+                sal: selectedScarf,
+                boy: document.getElementById('boy').value,
+                kilo: document.getElementById('kilo').value,
+                omuz: document.getElementById('omuz').value,
+                gogus: document.getElementById('gogus').value,
+                bel: document.getElementById('bel').value,
+                basen: document.getElementById('basen').value
+            };
+            
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex].avatar = avatarData;
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Avatar bilgileriniz başarıyla kaydedildi!');
+                window.location.href = 'kategoriler.html';
+            } else {
+                alert('Lütfen önce giriş yapın!');
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html> 

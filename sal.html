@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Şallar</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: #8B0000;
+            font-size: 24px;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 120px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B0000;
+            cursor: pointer;
+            width: 40px;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background-color: #f5f5f5;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pink-sal {
+            background-color: #FFB6C1;
+        }
+
+        .white-sal {
+            background-color: #FFFFFF;
+        }
+
+        .burgundy-sal {
+            background-color: #800020;
+        }
+
+        .star-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #8B0000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .star-icon.active {
+            color: gold;
+            transform: scale(1.2);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        .add-to-cart {
+            background-color: #8B0000;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #660000;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 0 20px;
+        }
+
+        .filter-btn {
+            background-color: white;
+            color: #8B0000;
+            border: 1px solid #8B0000;
+            padding: 8px 15px;
+            margin-right: 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #8B0000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn">☰</button>
+        <div class="logo">ŞALLAR</div>
+        <a href="profil.html" class="profile-btn">Profil</a>
+    </div>
+
+    <a href="kategoriler.html" class="back-btn">← Geri</a>
+
+    <div class="filter-container">
+        <button class="filter-btn">Tümü</button>
+        <button class="filter-btn">İpek</button>
+        <button class="filter-btn">Pamuk</button>
+        <button class="filter-btn">Desenli</button>
+    </div>
+
+    <div class="product-container">
+        <div class="product-card">
+            <div class="product-image pink-sal"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Pembe Şal</div>
+                <div class="product-price">129.99 TL</div>
+                <button class="add-to-cart">Sepete Ekle</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image white-sal"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Beyaz Şal</div>
+                <div class="product-price">99.99 TL</div>
+                <button class="add-to-cart">Sepete Ekle</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image burgundy-sal"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Bordo Şal</div>
+                <div class="product-price">149.99 TL</div>
+                <button class="add-to-cart">Sepete Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const stars = document.querySelectorAll('.star-icon');
+    stars.forEach(star => {
+        star.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.style.transform = 'scale(1.2)';
+            } else {
+                this.style.transform = 'scale(1)';
+            }
+        });
+    });
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productTitle = this.parentElement.querySelector('.product-title').textContent;
+            alert(productTitle + ' sepete eklendi!');
+        });
+    });
+    </script>
+</body>
+</html> 

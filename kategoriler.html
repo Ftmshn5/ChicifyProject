@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kategoriler</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: #8B0000;
+            font-size: 24px;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 120px;
+        }
+
+        .mini-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #E6C7C7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mini-avatar-head {
+            width: 20px;
+            height: 25px;
+            border-radius: 50%;
+            position: absolute;
+            top: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mini-avatar-hair {
+            width: 24px;
+            height: 15px;
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mini-avatar-body {
+            width: 26px;
+            height: 20px;
+            border-radius: 7px 7px 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mini-avatar-scarf {
+            width: 28px;
+            height: 10px;
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 7px 7px;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #8B0000;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B0000;
+            cursor: pointer;
+            width: 40px;
+        }
+
+        .recommendations {
+            margin-top: 40px;
+            color: #8B0000;
+            font-style: italic;
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+
+        .recommendations h2 {
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 24px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .recommendation-items {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .recommendation-item {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+            position: relative;
+            color: #8B0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .recommendation-item span {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #8B0000;
+        }
+
+        .recommendation-item span.active {
+            color: gold;
+            transform: scale(1.2);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn">☰</button>
+        <div class="logo">Ana Sayfa</div>
+        <a href="profil.html" class="profile-btn">
+            <div class="mini-avatar">
+                <div class="mini-avatar-hair"></div>
+                <div class="mini-avatar-head"></div>
+                <div class="mini-avatar-scarf"></div>
+                <div class="mini-avatar-body"></div>
+            </div>
+            Profil
+        </a>
+    </div>
+
+    <div class="categories">
+        <a href="montlar.html" class="category">Mont</a>
+        <a href="sweatshirt.html" class="category">Sweatshirt</a>
+        <a href="hirka.html" class="category">Hırka</a>
+        <a href="etek.html" class="category">Etek</a>
+        <a href="sort.html" class="category">Şort</a>
+        <a href="ceketler.html" class="category">Ceket</a>
+        <a href="bluz.html" class="category">Bluz</a>
+        <a href="tshirt.html" class="category">T-shirt</a>
+        <a href="pantalon.html" class="category">Pantalon</a>
+        <a href="tayt.html" class="category">Tayt</a>
+        <a href="gomlek-yelek.html" class="category">Gömlek/Yelek</a>
+        <a href="kazak.html" class="category">Kazak</a>
+        <a href="elbise.html" class="category">Elbise</a>
+        <a href="jean.html" class="category">Jean</a>
+        <a href="sal.html" class="category">Şal</a>
+    </div>
+
+    <div class="recommendations">
+        <h2>Öneriler</h2>
+        <div class="recommendation-items">
+            <a href="#" class="recommendation-item"><span>★</span></a>
+            <a href="#" class="recommendation-item"><span>★</span></a>
+            <a href="#" class="recommendation-item"><span>★</span></a>
+            <a href="#" class="recommendation-item"><span>★</span></a>
+            <a href="#" class="recommendation-item"><span>★</span></a>
+            <a href="#" class="recommendation-item"><span>★</span></a>
+        </div>
+    </div>
+
+    <script>
+    // Avatar verilerini localStorage'dan al
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userIndex = users.findIndex(u => u.email === currentUser.email);
+
+    if (userIndex !== -1 && users[userIndex].avatar) {
+        const avatarData = users[userIndex].avatar;
+        const miniHead = document.querySelector('.mini-avatar-head');
+        const miniHair = document.querySelector('.mini-avatar-hair');
+        const miniBody = document.querySelector('.mini-avatar-body');
+        const miniScarf = document.querySelector('.mini-avatar-scarf');
+
+        // Ten rengini ayarla
+        if (avatarData.tenRengi) {
+            miniHead.style.backgroundColor = avatarData.tenRengi;
+            miniBody.style.backgroundColor = avatarData.tenRengi;
+        }
+
+        // Saç rengini ayarla
+        if (avatarData.sacRengi) {
+            miniHair.style.backgroundColor = avatarData.sacRengi;
+        }
+
+        // Saç stilini ayarla
+        if (avatarData.sacModeli) {
+            miniHair.className = 'mini-avatar-hair hair-style-' + avatarData.sacModeli;
+        }
+
+        // Şal rengini ayarla
+        if (avatarData.sal) {
+            miniScarf.style.backgroundColor = avatarData.sal;
+            miniScarf.style.display = 'block';
+        } else {
+            miniScarf.style.display = 'none';
+        }
+    }
+
+    // Yıldız tıklama işlevi
+    const stars = document.querySelectorAll('.recommendation-item span');
+    stars.forEach(star => {
+        star.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.style.transform = 'scale(1.2)';
+            } else {
+                this.style.transform = 'scale(1)';
+            }
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+
+        if (!username) {
+            window.location.href = 'login.html'; // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            localStorage.removeItem("username");
+            localStorage.removeItem("avatar");
+            window.location.href = 'index.html'; // Çıkış yapınca ana sayfaya git
+        });
+    });
+
+
+
+    
+    </script>
+</body>
+</html> 

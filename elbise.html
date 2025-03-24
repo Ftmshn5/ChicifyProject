@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elbiseler</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: #8B0000;
+            font-size: 24px;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 120px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B0000;
+            cursor: pointer;
+            width: 40px;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background-color: #f5f5f5;
+        }
+
+        .star-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #8B0000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .star-icon.active {
+            color: gold;
+            transform: scale(1.2);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn">☰</button>
+        <div class="logo">ELBİSELER</div>
+        <a href="profil.html" class="profile-btn">Profil</a>
+    </div>
+
+    <a href="kategoriler.html" class="back-btn">← Geri</a>
+
+    <div class="product-container">
+        <div class="product-card">
+            <div class="product-image"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Mini Elbise</div>
+                <div class="product-price">699.99 TL</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Midi Elbise</div>
+                <div class="product-price">799.99 TL</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image"></div>
+            <span class="star-icon">★</span>
+            <div class="product-info">
+                <div class="product-title">Uzun Elbise</div>
+                <div class="product-price">899.99 TL</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Yıldız tıklama işlevi
+    const stars = document.querySelectorAll('.star-icon');
+    stars.forEach(star => {
+        star.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.style.transform = 'scale(1.2)';
+            } else {
+                this.style.transform = 'scale(1)';
+            }
+        });
+    });
+    </script>
+</body>
+</html> 

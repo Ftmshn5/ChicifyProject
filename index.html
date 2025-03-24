@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHICIFY</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        .login-btn {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .content {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .title {
+            font-size: 48px;
+            color: #8B0000;
+            margin-bottom: 30px;
+            font-family: "Times New Roman", serif;
+        }
+        .subtitle {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 50px;
+            font-family: cursive;
+        }
+        .contact-box {
+            background-color: rgba(188, 143, 143, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .contact-item {
+            text-align: left;
+            color: #333;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="login.html" class="login-btn">Kullanıcı Girişi</a>
+    </div>
+    
+    <div class="content">
+        <h1 class="title">CHICIFY</h1>
+        <p class="subtitle">Şıklığı Yaşam Tarzı Haline Getirenler İçin</p>
+        
+        <div class="contact-box">
+            <div class="contact-item">
+                İletişim No: 0541 589 5736<br>
+                E-posta: chicify05@gmail.com
+            </div>
+            <div class="contact-item">
+                Instagram: chicify_officiall<br>
+                X: chicifyy
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+<img id="userAvatar" src="" alt="Kullanıcı Avatarı" width="100">
+<p id="usernameDisplay"></p>
+<button onclick="logout()">Çıkış Yap</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const avatar = localStorage.getItem("avatar");
+
+        if (!username || !avatar) {
+            // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
+            window.location.href = 'login.html';
+        } else {
+            // Kullanıcı adını ve avatarı göster
+            document.getElementById("usernameDisplay").textContent = `Hoşgeldin, ${username}!`;
+            document.getElementById("userAvatar").src = avatar;
+        }
+    });
+
+    function logout() {
+        localStorage.removeItem("username");
+        localStorage.removeItem("avatar"); // Avatar bilgisini de temizle
+        window.location.href = 'login.html';
+    }
+</script>
+
+</html> 
