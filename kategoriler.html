@@ -260,11 +260,31 @@
         star.addEventListener('click', function(e) {
             e.preventDefault();
             this.classList.toggle('active');
+
+            // Ürün bilgilerini al
+            const productCard = this.closest('.product-card');
+            const title = productCard.querySelector('.product-title').textContent;
+            const price = productCard.querySelector('.product-price').textContent;
+            const productImage = productCard.querySelector('.product-image');
+            const color = window.getComputedStyle(productImage).backgroundColor;
+
+            // Favorileri localStorage'dan al
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+
             if (this.classList.contains('active')) {
-                this.style.transform = 'scale(1.2)';
+                // Favorilere ekle
+                favorites.push({
+                    title: title,
+                    price: price,
+                    color: color
+                });
             } else {
-                this.style.transform = 'scale(1)';
+                // Favorilerden çıkar
+                favorites = favorites.filter(item => item.title !== title);
             }
+
+            // Favorileri kaydet
+            localStorage.setItem('favorites', JSON.stringify(favorites));
         });
     });
     document.addEventListener("DOMContentLoaded", function() {
@@ -280,10 +300,6 @@
             window.location.href = 'index.html'; // Çıkış yapınca ana sayfaya git
         });
     });
-
-
-
-    
     </script>
 </body>
 </html> 

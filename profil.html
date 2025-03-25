@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profilim</title>
+    <style>
+        body {
+            background-color: #E6C7C7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: #8B0000;
+            font-size: 24px;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .username {
+            font-size: 24px;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #8B0000;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            color: #8B0000;
+            cursor: pointer;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .tab.active {
+            font-weight: bold;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #8B0000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f5f5f5;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            color: #8B0000;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background-color: white;
+            color: #8B0000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Geri</a>
+
+    <div class="profile-section">
+        <div class="profile-header">
+            <img id="profileAvatar" class="profile-avatar" alt="Profil Resmi">
+            <div class="profile-info">
+                <div id="profileUsername" class="username"></div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('favorites')">Favorilerim</div>
+            <div class="tab" onclick="showTab('wardrobe')">Gardrobum</div>
+            <div class="tab" onclick="showTab('followers')">Takipçilerim</div>
+            <div class="tab" onclick="showTab('following')">Takip Ettiklerim</div>
+        </div>
+
+        <div id="favorites" class="tab-content active">
+            <!-- Favoriler buraya dinamik olarak eklenecek -->
+        </div>
+
+        <div id="wardrobe" class="tab-content">
+            <!-- Gardroba eklenen ürünler buraya gelecek -->
+        </div>
+
+        <div id="followers" class="tab-content">
+            <!-- Takipçiler buraya gelecek -->
+        </div>
+
+        <div id="following" class="tab-content">
+            <!-- Takip edilenler buraya gelecek -->
+        </div>
+    </div>
+
+    <script>
+        // Kullanıcı bilgilerini yükle
+        document.addEventListener('DOMContentLoaded', function() {
+            const username = localStorage.getItem('username');
+            const avatar = localStorage.getItem('avatar');
+            
+            if (username) {
+                document.getElementById('profileUsername').textContent = username;
+            }
+            
+            if (avatar) {
+                document.getElementById('profileAvatar').src = avatar;
+            }
+
+            // Favorileri yükle
+            loadFavorites();
+        });
+
+        function showTab(tabId) {
+            // Tüm tabları ve içerikleri gizle
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Seçilen tabı ve içeriğini göster
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const favoritesContainer = document.getElementById('favorites');
+            
+            favoritesContainer.innerHTML = favorites.map(product => `
+                <div class="product-card">
+                    <div class="product-image" style="background-color: ${product.color}"></div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">${product.price}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html> 
